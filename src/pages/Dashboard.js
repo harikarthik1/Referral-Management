@@ -70,7 +70,7 @@ export default function Dashboard() {
       setCopiedField(field);
       setTimeout(() => setCopiedField(''), 1500);
     } catch (e) {
-      // Clipboard may be unavailable-fail silently.
+      console.log(e);
     }
   };
 

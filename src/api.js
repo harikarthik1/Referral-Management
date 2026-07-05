@@ -18,7 +18,7 @@ export async function signIn(email, password) {
   try {
     responseJson = await response.json();
   } catch (e) {
-    // ignore parse failure, handled below
+    console.log(e);
   }
 
   if (response.ok) {
@@ -58,7 +58,7 @@ export async function fetchReferrals({ search, sort } = {}) {
   try {
     responseJson = await response.json();
   } catch (e) {
-    // ignore parse failure
+    console.log(e);
   }
 
   if (!response.ok) {
@@ -85,7 +85,7 @@ export async function fetchReferralById(id) {
   try {
     responseJson = await response.json();
   } catch (e) {
-    // ignore parse failure
+    console.log(e);
   }
 
   if (!response.ok) {
@@ -97,7 +97,6 @@ export async function fetchReferralById(id) {
 
   const normalized = normalizeData(responseJson);
 
-  // The single-referral response's `data` is often the row itself.
   const dataField = responseJson?.data;
   if (
     dataField &&
@@ -119,7 +118,6 @@ export async function fetchReferralById(id) {
       (r) => String(r.id) === String(id)
     );
     if (match) return match;
-    // Fall back to first row if only one row was returned for this id.
     if (normalized.referrals.length === 1) {
       return normalized.referrals[0];
     }
